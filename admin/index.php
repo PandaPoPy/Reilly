@@ -1,15 +1,14 @@
 <?php
-//require_once('init.php');
-
 session_start();
 
-if ($_SESSION['username']=='admin'){
-
+if(isset($_SESSION['username'])){
+    if ($_SESSION['username']=='admin'){
 	header('Location: main.php');
 	die();
+	}
 }
 
-if (isset($_POST)){
+if (isset($_POST['username']) && isset($_POST['password'])){
 	if ($_POST['username']=='admin' && $_POST['password']=='popy'){
 		$_SESSION['username']=$_POST['username'];
 		header('Location: main.php');
@@ -18,21 +17,7 @@ if (isset($_POST)){
 		$erreur = "Nom d'utilisateur ou Mot de passe incorrect.";
 	}
 }
-/*if ($_SESSION['admin']=$config['admin_password']){
-	header('Location: main.php');
-	die();
-}
-
-if(isset($_POST)) {
-    if($_POST['username']=$config['admin_username'] && password_verify($_POST['password'],$config['admin_password'])) {
-        // authentification OK
-        $_SESSION['admin'] = true;
-    } else {
-        // authentification KO
-        $erreur = 'Mot de passe incorrect.';
-    }
-}
-
+/*
 if(isset($_GET['deconnexion'])) {
     $_SESSION = [];
     header('Location: index.php');
@@ -42,7 +27,8 @@ if(isset($_GET['deconnexion'])) {
 if(is_admin()) {
     header('Location: main.php');
     die();
-}*/
+}
+*/
 ?>
 <!DOCTYPE html>
 <html>
@@ -60,7 +46,7 @@ if(isset($erreur)) {
 }
 ?>
 	<div><label for="id_user">Nom d'utilisateur Administrateur :</label>
-         <input name="username" id="id_user" />
+         <input type = "text" name="username" id="id_user" />
     </div>
     <div><label for="id_password">Mot de passe d’administration :</label>
          <input type="password" name="password" id="id_password" />
